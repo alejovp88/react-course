@@ -1,33 +1,42 @@
-const characters = ['goku', 'vegeta', 'trunks'];
+import {getHeroById}  from './bases/08-imp-exp'
 
-console.log(characters[0]);
-console.log(characters[1]);
-console.log(characters[2]);
+/*
+const promesa = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        //resolve();
+        //tarea
 
-console.log('----------------------');
-const [p1] = characters;
-console.log(p1);
+        const hero = getHeroById(2)
+        console.log('2 sec')
+        console.log(hero)
+        //resolve(hero)
+        reject('not found');
+    }, 2000)
+});
 
-const [,p2] = characters;
-console.log(p2)
+promesa.then(() =>{
+    console.log('then de la promesa');
+})
+.catch(err => {
+    console.warn(err)
+})*/
 
-const [, , p3] = characters;
-console.log(p3)
+const getHeroByIdAsync = (id) => {
+    return  new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const hero = getHeroById(id)
+            if(hero) {
+                resolve(hero)
+            } else {
+                reject('not found');
+            }
 
-const returnArray = () => {
-    return ['ABC', 123];
+        }, 2000)
+    });
 }
 
-const [letters, numbers] = returnArray();
-
-console.log(letters, numbers);
-
-const getMessage = (value) => {
-    return [value, () => {console.log('Hola Mundo')}];
-}
-
-console.log('----------------------');
-const [name, setName] = getMessage('Goku');
-
-console.log(name);
-setName();
+getHeroByIdAsync(10)
+    .then(hero => console.log('Hero', hero))
+    .catch((err) => {
+        console.warn(err)
+    });
